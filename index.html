@@ -1,15 +1,44 @@
+<style>
+    .cat-clicker-wrapper {
+        display: flex;
+        flex-direction: row;
+    }
+    .cat-section, p {
+        margin: 5px 10px;
+    }
+    .cat-image {
+        width: 200px;
+        cursor: pointer;
+    }
+</style>
 
 <div class="cat-clicker-wrapper">
-    <div class="cat-clicker cat-image-container">
-        <img id="cat" class="cat-image" src="https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426" alt="cat">
-    </div>
-    <p class="cat-clicks">0</p>
 </div>
-
 <script type="text/javascript">
-    var catClicks = 0;
-    document.getElementById("cat").addEventListener("click",function(){
-        catClicks+=1;
-        document.getElementsByClassName("cat-clicks")[0].innerHTML = catClicks; 
-    })
+    let catClicks = 0;
+    let catNames = ["Mr. Fluffers", "Whiskers"];
+    let  catWrapper = document.querySelector(".cat-clicker-wrapper");
+    for (let i = 0; i < catNames.length; i++) {
+        let catSection = document.createElement("div");
+        catSection.className = "cat-section";
+        let catImage = document.createElement("img");
+        catImage.className = "cat-image";
+        let clickCounter = document.createElement("p");
+        let catName = document.createElement("p");
+        catName.textContent = catNames[i];
+        catImage.setAttribute("src","https://lh3.ggpht.com/nlI91wYNCrjjNy5f-S3CmVehIBM4cprx-JFWOztLk7vFlhYuFR6YnxcT446AvxYg4Ab7M1Fy0twaOCWYcUk=s0#w=640&h=426");
+        catSection.append(catName);
+        catSection.append(catImage);
+        catSection.append(clickCounter);
+        clickCounter.textContent = 0;
+        
+        catWrapper.append(catSection)
+        catImage.addEventListener("click", (function(currentCounter) {
+            return function() {
+                currentCounter++;
+                clickCounter.textContent = currentCounter;
+            }
+            
+        })(clickCounter.textContent));
+    }
 </script>
